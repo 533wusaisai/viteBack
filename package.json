@@ -1,0 +1,78 @@
+{
+  "name": "public-opinion-operation",
+  "version": "1.2.0",
+  "author": "wusaisai",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development vite",
+    "build:dev": "vue-tsc --noEmit && vite build --mode development",
+    "build:prd": "vue-tsc --noEmit && vite build --mode production",
+    "lint": "vue-cli-service lint",
+    "preview": "vite preview",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "log": "standard-version"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "ant-design-vue": "^3.0.0-alpha.14",
+    "axios": "^0.24.0",
+    "babel-eslint": "^10.1.0",
+    "commitizen": "^4.2.4",
+    "conventional-changelog-cli": "^2.1.1",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
+    "mockjs": "^1.1.0",
+    "pinia": "^2.0.8",
+    "standard-version": "^9.3.2",
+    "vue": "^3.2.25",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@types/lodash-es": "^4.17.5",
+    "@types/node": "^16.11.12",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "@vitejs/plugin-vue": "^2.0.0",
+    "@vue/eslint-config-typescript": "^9.1.0",
+    "chalk": "4",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.2.0",
+    "less": "^4.1.2",
+    "lint-staged": "^12.1.2",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.4",
+    "unplugin-vue-components": "^0.17.8",
+    "vite": "^2.7.1",
+    "vite-plugin-mock": "^2.9.6",
+    "vue-tsc": "^0.29.8",
+    "yorkie": "^2.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "node scripts/verifyCommit.js"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.ts?(x)": [
+      "eslint",
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitcode.aggso.com/wusaisai/public-opinion-operation"
+  }
+}

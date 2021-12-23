@@ -10,7 +10,7 @@
             src="@/assets/images/svg/logo.svg"
             alt="logo" />
         </a>
-        <span>舆论作业系统</span>
+        <span>后台管理系统</span>
       </h1>
       <div class="login_input">
         <!-- <h2>登录</h2> -->

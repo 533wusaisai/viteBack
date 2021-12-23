@@ -7,7 +7,7 @@
         <h1
           v-if="!formState.collapsed"
           class="title">
-          舆论作业系统
+          后台管理系统
         </h1>
       </div>
       <sider-menu />
@@ -15,7 +15,7 @@
     <ALayout>
       <ALayoutHeader style="background: #fff; padding-left:10px">
         <div class="header">
-          <div>舆论作业系统 </div>
+          <div>后台管理系统 </div>
           <div>
             <a-avatar style="background-color: #87d068;margin-right:10px">
               <template #icon>

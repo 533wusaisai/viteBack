@@ -13,17 +13,17 @@
         仿真环境管理
       </template>
       <AMenuItem
-        key="1"
+        key="/task/task1"
         @click="titleClick('/task/task1')">
         人物管理
       </AMenuItem>
       <AMenuItem
-        key="2"
+        key="/task/task2"
         @click="titleClick('/task/task2')">
         社交账号管理
       </AMenuItem>
       <AMenuItem
-        key="3"
+        key="/task/task3"
         @click="titleClick('/task/task3')">
         媒体管理
       </AMenuItem>
@@ -52,7 +52,7 @@
       </AMenuItem>
     </ASubMenu>
     <AMenuItem
-      key="sub4"
+      key="/writing/writing2"
       @click="titleClick('/writing/writing2')">
       <template #icon>
         <setting-outlined />
@@ -62,7 +62,7 @@
       </span>
     </AMenuItem>
     <AMenuItem
-      key="sub3"
+      key="/reviewer/reviewer1"
       @click="titleClick('/reviewer/reviewer1')">
       <template #icon>
         <solution-outlined />
@@ -72,7 +72,7 @@
       </span>
     </AMenuItem>
     <AMenuItem
-      key="sub9" 
+      key="/reviewer/reviewer2" 
       @click="titleClick('/reviewer/reviewer2')">
       <template #icon>
         <solution-outlined />
@@ -81,41 +81,54 @@
         案例管理
       </span>
     </AMenuItem>
+    <AMenuItem
+      key="/reviewer/reviewer3" 
+      @click="titleClick('/reviewer/reviewer3')">
+      <template #icon>
+        <solution-outlined />
+      </template>
+      <span>
+        可视化图表
+      </span>
+    </AMenuItem>
   </AMenu>
 </template>
 <script lang="ts">
 import { AppstoreOutlined, ClusterOutlined, SettingOutlined, SolutionOutlined } from '@ant-design/icons-vue'
-import { defineComponent, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineComponent, onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 export default defineComponent({
   components: {
-    // QqOutlined,
     AppstoreOutlined,
     SettingOutlined,
-    // EditOutlined,
     SolutionOutlined,
     ClusterOutlined,
-    // BlockOutlined
   },
   setup() {
     const router = useRouter()
-    const selectedKeys = ref<string[]>(['1'])
+    const route = useRoute()
+    const selectedKeys = ref<string[]>([])
     const openKeys = ref<string[]>(['sub1'])
     const titleClick = (path: string) => {
       router.push({
         path: path,
       })
     }
+    console.log('sider=>',route.path);
     watch(
       () => openKeys,
       (val) => {
         console.log('openKeys', val)
       }
     )
+    const sub = onMounted(()=>{
+      selectedKeys.value.push(route.path)
+    })
     return {
       selectedKeys,
       openKeys,
       titleClick,
+      sub
     }
   },
 })

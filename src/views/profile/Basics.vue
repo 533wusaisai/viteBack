@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-card
-      title="阅读率管理">
+      title="传播率管理">
       <template #extra>
         <a
           href="#"
@@ -27,13 +27,13 @@
               </a-popconfirm>
               <a-popconfirm
                 v-if="dataSource.length"
-                title="编辑当前数据?"
+                title="是否编辑当前数据?"
                 @confirm="onDelete(record.index)">
                 <a-button>编辑</a-button>
               </a-popconfirm>
               <a-popconfirm
                 v-if="dataSource.length"
-                title="查看当前数据?"
+                title="是否查看当前数据?"
                 @confirm="onDelete(record.index)">
                 <a-button>查看</a-button>
               </a-popconfirm>
@@ -50,7 +50,7 @@
 <script lang="ts">
 
 import { computed, defineComponent, ref } from 'vue';
-import Model from './components/Model1.vue';
+import Model from '../dashboard/target/components/Model.vue';
 
 
 interface DataItem {
@@ -80,7 +80,7 @@ export default defineComponent({
             align: 'center'
       },
       {
-        title: '平均阅读率',
+        title: '平均传播率',
         dataIndex: 'nationality',
         width: 200,
             align: 'center'
@@ -88,8 +88,8 @@ export default defineComponent({
       {
         title: '操作',
         dataIndex: 'operation',
-        width: 300,
-            align: 'center'
+        width: 200,
+        align: 'center'
       },
     ];
      const dataSource:any = ref([
@@ -124,8 +124,8 @@ export default defineComponent({
         const newData = {
           index: `100${count.value}`,
           name: `Facebook ${count.value}`,
-          nationality: ` ${count.value}%`,
-          type: `普通人物${count.value}`,
+          sex: `男 ${count.value}`,
+          nationality: `${count.value}%`,
         };
         dataSource.value.push(newData);
       }

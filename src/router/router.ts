@@ -1,225 +1,167 @@
 const routes = [
   {
+    //
     path: '/',
     component: () => import('@/layouts/BasicLayout.vue'),
     hidenInMenu: true,
     meta: {
+      title: '首页',
       authority: ['user', 'admin'],
       auth: true,
     },
     children: [
       {
         path: '/',
-        redirect: '/task/task1',
+        redirect: '/dashboard/workplace',
       },
+      // 工作台
       {
-        path: '/task',
-        name: 'Task',
-        component: () => import('@/views/dashboard/Task.vue'),
+        path: '/dashboard',
+        component: () => import('@/views/pages/Workplace.vue'),
         meta: {
           icon: 'task',
-          title: '任务管理',
+          title: '仪表盘',
           authority: ['admin'],
         },
-        // redirect: '/task/one',
         children: [
+          // 仪表盘 => 工作台
           {
-            path: '/task/task1',
-            name: 'task1',
-            component: () => import('@/views/dashboard/task/node.vue'),
+            path: '/dashboard/workplace',
+            name: 'Workplace',
+            component: () => import('@/views/dashboard/Workplace.vue'),
             meta: {
-              // icon: "dashboard",
-              title: '任务1',
+              title: '工作台',
+            },
+          },
+          // 仪表盘 => 监控页
+          {
+            path: '/dashboard/monitor',
+            name: 'Monitor',
+            component: () => import('@/views/dashboard/Monitor.vue'),
+            meta: {
+              title: '监控页',
             },
           },
           {
-            path: '/task/task2',
-            name: 'task2',
-            component: () => import('@/views/dashboard/task/task2.vue'),
+            path: '/dashboard/analysis',
+            name: 'Analysis',
+            component: () => import('@/views/dashboard/Analysis.vue'),
             meta: {
-              // icon: "dashboard",
-              title: '任务2',
-            },
-          },
-          {
-            path: '/task/task3',
-            name: 'task3',
-            component: () => import('@/views/dashboard/task/task3.vue'),
-            meta: {
-              // icon: "dashboard",
-              title: '任务3',
+              title: '分析页',
             },
           },
         ],
       },
       {
-        path: '/target',
-        name: 'Target',
-        component: () => import('@/views/dashboard/Target.vue'),
+        path: '/list',
+        component: () => import('@/views/pages/List.vue'),
         meta: {
-          icon: 'target',
-          title: '目标管理',
+          icon: 'list',
+          title: '列表',
           authority: ['admin'],
         },
         children: [
           {
-            path: '/target/target1',
-            name: 'target1',
-            component: () => import('@/views/dashboard/target/target1.vue'),
+            path: '/list/search',
+            name: 'Search',
+            component: () => import('@/views/list/Search.vue'),
             meta: {
-              // icon: "dashboard",
-              title: '目标1',
+              title: '搜索页',
             },
           },
           {
-            path: '/target/target2',
-            name: 'target2',
-            component: () => import('@/views/dashboard/target/target2.vue'),
+            path: '/list/form',
+            name: 'Form',
+            component: () => import('@/views/list/Form.vue'),
             meta: {
-              // icon: "dashboard",
-              title: '目标2',
+              title: '表单页',
             },
           },
           {
-            path: '/target/target3',
-            name: 'target3',
-            component: () => import('@/views/dashboard/target/target3.vue'),
+            path: '/list/list',
+            name: 'List',
+            component: () => import('@/views/list/List.vue'),
             meta: {
-              // icon: "dashboard",
-              title: '目标3',
+              title: '列表页',
             },
           },
         ],
       },
       {
-        path: '/user',
-        name: 'User',
-        component: () => import('@/views/dashboard/User.vue'),
+        path: '/account',
+        component: () => import('@/views/pages/Account.vue'),
         meta: {
-          icon: 'strategy',
-          title: '账号管理',
+          title: '个人页',
           authority: ['admin'],
         },
         children: [
           {
-            path: '/user/account1',
-            name: 'account1',
-            component: () => import('@/views/dashboard/user/account1.vue'),
+            path: '/account/center',
+            name: 'Center',
+            component: () => import('@/views/account/Center.vue'),
             meta: {
-              icon: 'contrast',
-              title: '账号1',
+              title: '个人中心',
               authority: ['admin'],
             },
           },
           {
-            path: '/user/account2',
-            name: 'account2',
-            component: () => import('@/views/dashboard/user/account2.vue'),
+            path: '/account/setting',
+            name: 'Setting',
+            component: () => import('@/views/account/Setting.vue'),
             meta: {
-              icon: 'case',
-              title: '账号2',
+              icon: 'setting',
+              title: '个人设置',
               authority: ['admin'],
             },
           },
         ],
       },
       {
-        path: '/reviewer',
-        name: 'Reviewer',
-        component: () => import('@/views/dashboard/Reviewer.vue'),
+        path: '/result',
+        component: () => import('@/views/pages/Result.vue'),
         meta: {
-          icon: 'strategy',
-          title: '网评员管理',
+          title: '结果页',
           authority: ['admin'],
         },
         children: [
           {
-            path: '/reviewer/reviewer1',
-            name: 'reviewer1',
-            component: () => import('@/views/dashboard/reviewer/reviewer1.vue'),
+            path: '/result/success',
+            name: 'Success',
+            component: () => import('@/views/result/Success.vue'),
             meta: {
-              icon: 'contrast',
-              title: '网评员1',
-              authority: ['admin'],
+              icon: 'success',
+              title: '成功页',
             },
           },
           {
-            path: '/reviewer/reviewer2',
-            name: 'reviewer2',
-            component: () => import('@/views/dashboard/reviewer/reviewer2.vue'),
+            path: '/result/error',
+            name: 'Error',
+            component: () => import('@/views/result/Error.vue'),
             meta: {
-              icon: 'case',
-              title: '网评员2',
-              authority: ['admin'],
-            },
-          },
-          {
-            path: '/reviewer/reviewer3',
-            name: 'reviewer3',
-            component: () => import('@/views/dashboard/reviewer/reviewer3.vue'),
-            meta: {
-              icon: 'case',
-              title: '网评员3',
-              authority: ['admin'],
-            },
-          },
-          {
-            path: '/reviewer/reviewer4',
-            name: 'reviewer4',
-            component: () => import('@/views/dashboard/reviewer/reviewer4.vue'),
-            meta: {
-              icon: 'case',
-              title: '网评员4',
-              authority: ['admin'],
+              icon: 'error',
+              title: '失败页',
             },
           },
         ],
       },
       {
-        path: '/writing',
-        name: 'Writing',
-        component: () => import('@/views/dashboard/Writing/index.vue'),
+        path: '/contrast',
+        component: () => import('@/views/contrast/Contrast.vue'),
         meta: {
-          icon: 'strategy',
-          title: '网评员管理',
+          title: '对比页',
           authority: ['admin'],
         },
-        children: [
-          {
-            path: '/writing/writing1',
-            name: 'writing1',
-            component: () => import('@/views/dashboard/Writing/components/writing1.vue'),
-            meta: {
-              icon: 'contrast',
-              title: '网评员1',
-              authority: ['admin'],
-            },
-          },
-          {
-            path: '/writing/writing2',
-            name: 'writing2',
-            component: () => import('@/views/dashboard/Writing/components/writing2.vue'),
-            meta: {
-              icon: 'case',
-              title: '网评员2',
-              authority: ['admin'],
-            },
-          },
-          {
-            path: '/writing/writing3',
-            name: 'writing3',
-            component: () => import('@/views/dashboard/Writing/components/writing3.vue'),
-            meta: {
-              icon: 'case',
-              title: '网评员3',
-              authority: ['admin'],
-            },
-          },
-        ],
+      },
+      {
+        path: '/chart',
+        component: () => import('@/views/chart/Chart.vue'),
+        meta: {
+          title: '可视化图表页',
+          authority: ['admin'],
+        },
       },
     ],
   },
-
   {
     path: '/login',
     name: 'Login',
@@ -228,18 +170,12 @@ const routes = [
       title: '登录',
     },
   },
-  // {
-  //   path: '*',
-  //   name: '404',
-  //   hidenInMenu: true,
-  //   // component: NotFound,
-  // },
-  // {
-  //   path: '/403',
-  //   name: '403',
-  //   hidenInMenu: true,
-  //   // component: NoPage,
-  // },
+  {
+    path: '/404',
+    name: '404',
+    hidenInMenu: true,
+    component: () => import('@/views/404.vue'),
+  },
 ]
 
 export default routes

@@ -10,22 +10,22 @@
         <cluster-outlined />
       </template>
       <template #title>
-        仿真环境管理
+        仪表盘
       </template>
       <AMenuItem
-        key="/task/task1"
-        @click="titleClick('/task/task1')">
-        人物管理
+        key="/dashboard/workplace"
+        @click="titleClick('/dashboard/workplace')">
+        工作台
       </AMenuItem>
       <AMenuItem
-        key="/task/task2"
-        @click="titleClick('/task/task2')">
-        社交账号管理
+        key="/dashboard/monitor"
+        @click="titleClick('/dashboard/monitor')">
+        监控页
       </AMenuItem>
       <AMenuItem
-        key="/task/task3"
-        @click="titleClick('/task/task3')">
-        媒体管理
+        key="/dashboard/analysis"
+        @click="titleClick('/dashboard/analysis')">
+        分析页
       </AMenuItem>
     </ASubMenu>
     <ASubMenu key="sub2">
@@ -33,70 +33,108 @@
         <appstore-outlined />
       </template>
       <template #title>
-        效果评估环境模型管理
+        列表页
       </template>
       <AMenuItem
         key="5"
-        @click="titleClick('/target/target1')">
-        传播率管理
+        @click="titleClick('/list/search')">
+        搜索页
       </AMenuItem>
       <AMenuItem
         key="6"
-        @click="titleClick('/target/target2')">
-        阅读率管理
+        @click="titleClick('/list/form')">
+        基础表单页
       </AMenuItem>
       <AMenuItem
         key="7"
-        @click="titleClick('/target/target3')">
-        媒体传播率管理
+        @click="titleClick('/list/list')">
+        列表页
       </AMenuItem>
     </ASubMenu>
     <AMenuItem
-      key="/writing/writing2"
-      @click="titleClick('/writing/writing2')">
+      key="/contrast"
+      @click="titleClick('/contrast')">
       <template #icon>
         <setting-outlined />
       </template>
       <span>
-        策略模型管理
+        对比页
       </span>
     </AMenuItem>
+    <a-sub-menu key="sub4">
+      <template #icon>
+        <solution-outlined />
+      </template>
+      <template #title>
+        结果页
+      </template>
+      <AMenuItem
+        key="/result/success"
+        @click="titleClick('/result/success')">
+        <template #icon>
+          <solution-outlined />
+        </template>
+        <span>
+          成功页
+        </span>
+      </AMenuItem>
+      <AMenuItem
+        key="/result/error"
+        @click="titleClick('/result/error')">
+        <template #icon>
+          <solution-outlined />
+        </template>
+        <span>
+          错误页
+        </span>
+      </AMenuItem>
+    </a-sub-menu>
+    <!-- 个人页 -->
+    <a-sub-menu key="sub3">
+      <template #icon>
+        <setting-outlined />
+      </template>
+      <template #title>
+        个人页
+      </template>
+      <AMenuItem
+        key="/account/center" 
+        @click="titleClick('/account/center')">
+        <template #icon>
+          <solution-outlined />
+        </template>
+        <span>
+          个人中心
+        </span>
+      </AMenuItem>
+      <AMenuItem
+        key="/account/setting" 
+        @click="titleClick('/account/setting')">
+        <template #icon>
+          <solution-outlined />
+        </template>
+        <span>
+          个人设置
+        </span>
+      </AMenuItem>
+    </a-sub-menu>
+    <!-- 可视化图表 -->
     <AMenuItem
-      key="/reviewer/reviewer1"
-      @click="titleClick('/reviewer/reviewer1')">
+      key="/chart" 
+      @click="titleClick('/chart')">
       <template #icon>
         <solution-outlined />
       </template>
       <span>
-        效果对比
-      </span>
-    </AMenuItem>
-    <AMenuItem
-      key="/reviewer/reviewer2" 
-      @click="titleClick('/reviewer/reviewer2')">
-      <template #icon>
-        <solution-outlined />
-      </template>
-      <span>
-        案例管理
-      </span>
-    </AMenuItem>
-    <AMenuItem
-      key="/reviewer/reviewer3" 
-      @click="titleClick('/reviewer/reviewer3')">
-      <template #icon>
-        <solution-outlined />
-      </template>
-      <span>
-        可视化图表
+        可视化图表页
       </span>
     </AMenuItem>
   </AMenu>
 </template>
 <script lang="ts">
-import { AppstoreOutlined, ClusterOutlined, SettingOutlined, SolutionOutlined } from '@ant-design/icons-vue'
-import { defineComponent, onMounted, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { AppstoreOutlined, ClusterOutlined, SettingOutlined, SolutionOutlined } from '@ant-design/icons-vue';
+import { defineComponent, onMounted, ref, watch } from 'vue';
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 export default defineComponent({
   components: {
     AppstoreOutlined,
@@ -104,9 +142,14 @@ export default defineComponent({
     SolutionOutlined,
     ClusterOutlined,
   },
-  setup() {
+  emits:['GET_BREAD'],
+  setup(props,{emit}) {
     const router = useRouter()
     const route = useRoute()
+    onBeforeRouteUpdate((to:any, from:any, next:Function)=>{
+      emit('GET_BREAD',to.matched)
+      next()
+    })
     const selectedKeys = ref<string[]>([])
     const openKeys = ref<string[]>(['sub1'])
     const titleClick = (path: string) => {
@@ -114,7 +157,6 @@ export default defineComponent({
         path: path,
       })
     }
-    console.log('sider=>',route.path);
     watch(
       () => openKeys,
       (val) => {

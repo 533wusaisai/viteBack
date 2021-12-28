@@ -92,13 +92,17 @@ export default defineComponent({
       formRef.value
       .validate()
       .then(async () => {
-       const res =  await user({userName:formState.user,passWord:formState.password})
-       localStorage.setItem('user',JSON.stringify(res))
-        if(localStorage.getItem('token')){
-          router.push({
-            path: '/'
-          })
+        const res =  await user({userName:formState.user,passWord:formState.password})
+        if(res.code===200){
+            store.SET_USER_NAME()
+            localStorage.setItem('user',JSON.stringify(res))
+            if(localStorage.getItem('token')){
+              router.push({
+                path: '/'
+              })
+            }
         }
+       
         })
         .catch((err:any) => {
           console.log('error', err);
@@ -106,7 +110,7 @@ export default defineComponent({
     }
     const store = userStore();
     onMounted(async ()=>{
-      store.SET_USER_NAME()
+      //
     })
     return {
       formState,

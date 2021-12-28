@@ -7,6 +7,7 @@ export default [
       return {
         code: 200,
         data: {
+          code: 200,
           userName: 'admin',
           //   passworw: 'admin',
           email: '@email',

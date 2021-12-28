@@ -1,18 +1,23 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import route from './router'
-const routes: Array<RouteRecordRaw> = route
+import router from './router'
+const routes: Array<RouteRecordRaw> = router
 
-const router = createRouter({
+const route = createRouter({
   history: createWebHistory(),
   routes,
 })
-router.beforeEach((to, from, next) => {
+route.beforeEach((to, from, next) => {
+  // 跳转404页面
+  if (to.matched.length === 0) {
+    // from.name ? next({ name: from.name }) : next('/404')
+    next('/404')
+  }
   // 登录拦截
   if (to.path !== '/login' && !localStorage.token) {
     return next('/login')
   }
-  next()
-  //在跳转路由之前，先清除所有的请求
+  //封装请求中  //在跳转路由之前，先清除所有的请求
   // clearPending()
+  next()
 })
-export default router
+export default route

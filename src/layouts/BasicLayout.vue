@@ -3,6 +3,7 @@
     <ALayoutSider
       v-model:collapsed="formState.collapsed"
       collapsible>
+      <!-- 左侧LOGO -->
       <div class="logo">
         <h1
           v-if="!formState.collapsed"
@@ -10,61 +11,24 @@
           后台管理系统
         </h1>
       </div>
-      <sider-menu />
+      <!-- 左侧菜单 -->
+      <sider-menu @GET_BREAD="breadcrumb" />
     </ALayoutSider>
     <ALayout>
-      <ALayoutHeader style="background: #fff; padding-left:10px">
-        <div class="header">
-          <div>后台管理系统 </div>
-          <div>
-            <a-avatar style="background-color: #87d068;margin-right:10px">
-              <template #icon>
-                <user-outlined />
-              </template>
-            </a-avatar>
-            <a-dropdown>
-              <a
-                class="ant-dropdown-link"
-                @click.prevent>
-                <!-- {{name}}/ -->
-                {{ formState.name }}
-                <down-outlined />
-              </a>
-              <template #overlay>
-                <a-menu>
-                  <a-menu-item key="0">
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="http://www.alipay.com/">
-                      账号管理
-                    </a>
-                  </a-menu-item>
-                  <a-menu-item key="1">
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="http://www.taobao.com/">
-                      修改密码
-                    </a>
-                  </a-menu-item>
-                  <a-menu-divider />
-                  <a-menu-item
-                    key="3"
-                    @click="outLogin">
-                    退出
-                  </a-menu-item>
-                </a-menu>
-              </template>
-            </a-dropdown>
-          </div>
-        </div>
-      </ALayoutHeader>
+      <!-- 头部信息 -->
+      <layout-header />
       <ALayoutContent style="margin: 0 16px">
+        <!-- 面包屑 -->
         <a-breadcrumb style="margin: 16px 0">
-          <a-breadcrumb-item>首页</a-breadcrumb-item>
-          <a-breadcrumb-item>任务系统</a-breadcrumb-item>
+          <a-breadcrumb-item
+            v-for="(item,index) in formState.breadcrumb"
+            :key="index">
+            <router-link :to="item.path">
+              {{ item.title }}
+            </router-link>
+          </a-breadcrumb-item>
         </a-breadcrumb>
+        <!--子路由信息 -->
         <router-view />
       </ALayoutContent>
       <layout-footer />
@@ -73,36 +37,46 @@
 </template>
 <script lang="ts">
 import LayoutFooter from '@/components/Footer/index.vue';
+import LayoutHeader from '@/components/Header/index.vue';
 import SiderMenu from '@/layouts/SiderMenu.vue';
-import { DownOutlined, UserOutlined } from '@ant-design/icons-vue';
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, onMounted, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+
 export default defineComponent({
   components: {
-    UserOutlined,
-    DownOutlined,
     LayoutFooter,
     SiderMenu,
+    LayoutHeader,
   },
+ 
   setup(){
-
-    const user:any= localStorage.getItem('user')
-    const userName = JSON.parse(user)
     const router = useRouter()
     const route = useRoute()
-    const formState = reactive({
+    const formState:any = reactive({
       collapsed:false,
       selectedKeys: ['1'],
-      name : userName.userName
+      breadcrumb: []
     })
-
-    const outLogin = ()=>{
-      localStorage.removeItem('token')
-      router.replace(`/redirect/${route.path}`)
+    const  breadcrumb = (payload:any)=>{
+      setBreadcrumb(payload)
     }
+    // 设置面包屑
+    const setBreadcrumb = (arr:any)=>{
+      formState.breadcrumb = []
+      for(let key in arr){
+        let pathTitle:any = {}
+        pathTitle.path = arr[key].path
+        pathTitle.title = arr[key].meta.title
+        formState.breadcrumb.push(pathTitle)
+      }
+    }
+    onMounted(()=>{
+      setBreadcrumb(route.matched)
+    })
     return {
       formState,
-      outLogin
+      breadcrumb,
+      setBreadcrumb
     }
   }
  
@@ -126,9 +100,5 @@ export default defineComponent({
   .title{
     color:#fff;
   }
-}
-.header {
-  display: flex;
-  justify-content: space-between;
 }
 </style>

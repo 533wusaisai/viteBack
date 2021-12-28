@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-card
-      title="媒体传播率管理">
+      title="阅读率管理">
       <template #extra>
         <a
           href="#"
@@ -27,7 +27,7 @@
               </a-popconfirm>
               <a-popconfirm
                 v-if="dataSource.length"
-                title="是否要编辑数据?"
+                title="编辑当前数据?"
                 @confirm="onDelete(record.index)">
                 <a-button>编辑</a-button>
               </a-popconfirm>
@@ -50,7 +50,7 @@
 <script lang="ts">
 
 import { computed, defineComponent, ref } from 'vue';
-import Model from './components/Model2.vue';
+import Model from '../dashboard/target/components/Model1.vue';
 
 
 interface DataItem {
@@ -73,20 +73,14 @@ export default defineComponent({
         width: 100,
             align: 'center'
       },
-    {
-        title: 'A媒体名称',
-        dataIndex: 'nameA',
-        width: 200,
-            align: 'center'
-      },
-    {
-        title: 'B媒体名称',
-        dataIndex: 'nameB',
+       {
+        title: '媒体名称',
+        dataIndex: 'name',
         width: 200,
             align: 'center'
       },
       {
-        title: '媒体平均转发率',
+        title: '平均阅读率',
         dataIndex: 'nationality',
         width: 200,
             align: 'center'
@@ -101,15 +95,13 @@ export default defineComponent({
      const dataSource:any = ref([
       {
         index: '1001',
-        nameA: 'Facebook',
-        nameB: 'Youtube',
+        name: 'Facebook',
         sex: '男',
         nationality: '35%',
       },
       {
         index: '1002',
-        nameA: 'Facebook',
-        nameB: 'Youtube',
+        name: 'Facebook',
         sex: '女',
         nationality: '35%',
       },
@@ -131,10 +123,9 @@ export default defineComponent({
       if(!paylod){
         const newData = {
           index: `100${count.value}`,
-          nameA: `Facebook ${count.value}`,
-          nameB: `Youtube ${count.value}`,
-          count: 32,
-          nationality: `${count.value}%`,
+          name: `Facebook ${count.value}`,
+          nationality: ` ${count.value}%`,
+          type: `普通人物${count.value}`,
         };
         dataSource.value.push(newData);
       }

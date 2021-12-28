@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-card
-      title="社交账号管理">
+      title="数据监控页面">
       <template #extra>
         <a-button @click="JumpPath">
           意见领袖管理

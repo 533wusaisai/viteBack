@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-card
-      title="人物管理">
+      title="仪表盘">
       <template #extra>
         <a-button @click="handleStatistics">
           统计值

@@ -135,6 +135,9 @@
 import { AppstoreOutlined, ClusterOutlined, SettingOutlined, SolutionOutlined } from '@ant-design/icons-vue';
 import { defineComponent, onMounted, ref, watch } from 'vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
+interface IdeaData{
+  data: [],
+}
 export default defineComponent({
   components: {
     AppstoreOutlined,
@@ -157,20 +160,38 @@ export default defineComponent({
         path: path,
       })
     }
+   
+    const routeUrl = (routes:any)=>{
+      for(let item of routes){
+       if(item.children){
+         item.children.map((items:any)=>{
+           console.log(items);
+           if(items.name&&!items.hidenInMenu){
+             console.log()
+           }
+         })
+       }
+      }
+    }
+    onMounted(() => {
+      const route:any = router.options.routes
+      routeUrl(route)
+    }),
     watch(
       () => openKeys,
       (val) => {
         console.log('openKeys', val)
       }
     )
-    const sub = onMounted(()=>{
-      selectedKeys.value.push(route.path)
-    })
+    // const sub = onMounted(()=>{
+    //   selectedKeys.value.push(route.path)
+    // })
     return {
       selectedKeys,
       openKeys,
       titleClick,
-      sub
+      // sub,
+      routeUrl
     }
   },
 })

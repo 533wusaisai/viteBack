@@ -3,7 +3,6 @@ const routes = [
     //
     path: '/',
     component: () => import('@/layouts/BasicLayout.vue'),
-    hidenInMenu: true,
     meta: {
       title: '首页',
       authority: ['user', 'admin'],
@@ -17,6 +16,7 @@ const routes = [
       // 工作台
       {
         path: '/dashboard',
+        name: 'Dashboard',
         component: () => import('@/views/pages/Workplace.vue'),
         meta: {
           icon: 'task',
@@ -52,8 +52,10 @@ const routes = [
           },
         ],
       },
+      // 列表
       {
         path: '/list',
+        name: 'List',
         component: () => import('@/views/pages/List.vue'),
         meta: {
           icon: 'list',
@@ -87,8 +89,10 @@ const routes = [
           },
         ],
       },
+      // 账户中心
       {
         path: '/account',
+        name: 'Account',
         component: () => import('@/views/pages/Account.vue'),
         meta: {
           title: '个人页',
@@ -116,8 +120,10 @@ const routes = [
           },
         ],
       },
+      // 结果页面
       {
         path: '/result',
+        name: 'Result',
         component: () => import('@/views/pages/Result.vue'),
         meta: {
           title: '结果页',
@@ -144,16 +150,20 @@ const routes = [
           },
         ],
       },
+      // 对比页
       {
         path: '/contrast',
+        name: 'Contrast',
         component: () => import('@/views/contrast/Contrast.vue'),
         meta: {
           title: '对比页',
           authority: ['admin'],
         },
       },
+      // 图表页
       {
         path: '/chart',
+        name: 'Chart',
         component: () => import('@/views/chart/Chart.vue'),
         meta: {
           title: '可视化图表页',
@@ -165,9 +175,11 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
+    hidenInMenu: true,
     component: () => import('@/components/Login/index.vue'),
     meta: {
       title: '登录',
+      auth: true,
     },
   },
   {

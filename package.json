@@ -23,6 +23,7 @@
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.8",
     "standard-version": "^9.3.2",
     "vue": "^3.2.25",
